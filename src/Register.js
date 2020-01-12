@@ -8,7 +8,7 @@ const initialData = {
 
 export default function Register () {
     const [formData, setFormData] = useState(initialData)
-    const [userData, setUserData] = useState('')
+    const [userData, setUserData] = useState(null)
 
     const onChange = event => {
         setFormData({
