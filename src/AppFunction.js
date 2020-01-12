@@ -4,7 +4,7 @@ const AppFunction = () => {
     const [count, setCount] = useState(0)
 
     const incrementCount = () => {
-        setCount(count + 1)
+        setCount(prevState => prevState + 1)
     }
 
     return (
