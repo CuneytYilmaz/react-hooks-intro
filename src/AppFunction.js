@@ -3,10 +3,23 @@ import React, { useState, useEffect } from 'react'
 const AppFunction = () => {
     const [count, setCount] = useState(0)
     const [isOn, setIsOn] = useState(false)
+    const [mousePosition, setMousePosition] = useState({ x: null, y: null})
 
     useEffect(() => {
         document.title = `I was clicked ${count} times`
-    })
+        window.addEventListener('mousemove', handleMousePosition)
+
+        return () => {
+            window.removeEventListener('mousemove', handleMousePosition) 
+        }
+    },[count])
+
+    const handleMousePosition = event => {
+        setMousePosition({ 
+            x: event.pageX,
+            y: event.pageY,
+        })
+    }
 
     const incrementCount = () => {
         setCount(prevState => prevState + 1)
@@ -35,6 +48,9 @@ const AppFunction = () => {
                 }
                 onClick={toggleIsOn}
             />
+            <h2>Mouse Position</h2>
+            {JSON.stringify(mousePosition, null, 2)}
+            <br />
         </>
     )
 }

@@ -4,14 +4,28 @@ class AppClass extends Component {
   state = {
     count: 0,
     isOn: false,
+    x: null,
+    y: null,
   }
 
   componentDidMount () {
     document.title = `I was clicked ${this.state.count} times`
+    window.addEventListener('mousemove', this.handleMousePosition)
   }
 
   componentDidUpdate () {
     document.title = `I was clicked ${this.state.count} times`
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('mousemove', this.handleMousePosition)
+  }
+
+  handleMousePosition = event => {
+    this.setState({
+      x: event.pageX,
+      y: event.pageY
+    })
   }
 
   incrementCount = () => {
@@ -40,6 +54,9 @@ class AppClass extends Component {
           }}
           onClick={this.toggleSetOn}
         />
+        <h2>Mouse Position</h2>
+        <p>X position: {this.state.x}</p>
+        <p>Y position: {this.state.y}</p>
       </>
     )
   }
