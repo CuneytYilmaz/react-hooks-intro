@@ -2,17 +2,36 @@ import React, { useState } from 'react'
 
 const AppFunction = () => {
     const [count, setCount] = useState(0)
+    const [isOn, setIsOn] = useState(false)
 
     const incrementCount = () => {
         setCount(prevState => prevState + 1)
     }
 
+    const toggleIsOn = () => {
+        setIsOn(prevState => !prevState)
+    }
+
     return (
-        <div>
+        <>
+            <h2>Counter</h2>
             <button onClick={incrementCount}>
                 I was clicked {count} times
             </button>
-        </div>
+            <h2>Toggle</h2>
+            <img
+                style={{
+                    width: 50,
+                    height: 50
+                }}
+                alt="Flashlight"
+                src={
+                    isOn ? 'https://icon.now.sh/highlight/fd0'
+                         : 'https://icon.now.sh/highlight/aaa'
+                }
+                onClick={toggleIsOn}
+            />
+        </>
     )
 }
 
