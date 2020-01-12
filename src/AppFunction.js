@@ -4,13 +4,18 @@ const AppFunction = () => {
     const [count, setCount] = useState(0)
     const [isOn, setIsOn] = useState(false)
     const [mousePosition, setMousePosition] = useState({ x: null, y: null})
+    const [status, setStatus] = useState(navigator.onLine)
 
     useEffect(() => {
         document.title = `I was clicked ${count} times`
         window.addEventListener('mousemove', handleMousePosition)
+        window.addEventListener('online', handleOnline)
+        window.addEventListener('offline', handleOffline)
 
         return () => {
             window.removeEventListener('mousemove', handleMousePosition) 
+            window.addEventListener('online', handleOnline)
+            window.addEventListener('offline', handleOffline)
         }
     },[count])
 
@@ -19,6 +24,14 @@ const AppFunction = () => {
             x: event.pageX,
             y: event.pageY,
         })
+    }
+
+    const handleOnline = () => {
+        setStatus(true)
+    }
+
+    const handleOffline = () => {
+        setStatus(false)
     }
 
     const incrementCount = () => {
@@ -51,6 +64,8 @@ const AppFunction = () => {
             <h2>Mouse Position</h2>
             {JSON.stringify(mousePosition, null, 2)}
             <br />
+            <h2>Network Status</h2>
+            <p>You are {status ? "online" : "offline"}</p>
         </>
     )
 }
